@@ -1,0 +1,68 @@
+ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    2  curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+    3  echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+    4  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    5  # For AMD64 / x86_64
+    6  [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-amd64
+    7  # For ARM64
+    8  [ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.26.0/kind-linux-arm64
+    9  chmod +x ./kind
+   10  sudo mv ./kind /usr/local/bin/kind
+   11  kind --version
+   12  vi config.yaml
+   13  kind create cluster --config config.yaml --name cka_cluster
+   14  kind create cluster --config config.yaml --name cka-cluster
+   15  sudo apt-get update && sudo apt-get install docker.io -y
+   16  sudo groupadd docker
+   17  sudo usermod -aG docker $USER
+   18  newgrp docker
+   19  kubectl cluster-info --context kind-cka-cluster
+   20  kind get clusters
+   21  ls
+   22  vi clusterip.yaml
+   23  rm-rf clusterip.yaml
+   24  rm -rf clusterip.yaml
+   25  ls
+   26  vi deployment.yaml
+   27  kubectl apply -f deployment.yaml
+   28  vi cluserip-service.yaml
+   29  kubectl apply -f cluserip-service.yaml
+   30  vi cluserip-service.yaml
+   31  kubectl apply -f cluserip-service.yaml
+   32  kubectl get pods
+   33  vi deployment.yaml
+   34  kubectl apply -f deployment.yaml
+   35  kubectl get pods
+   36  docker pull nginx:1.23.4-alpine
+   37  kubectl apply -f deployment.yaml
+   38  kubectl get pods
+   39  vi deployment.yaml
+   40  kubectl apply -f deployment.yaml
+   41  kubectl get pods
+   42  vi deployment.yaml
+   43  kubectl scale --current-replicas=1 --replicas=2 deployment/myapp
+   44  kubectl get pods
+   45  kubectl run -i --ttyy busybox --image=busybox:1.28
+   46  kubectl run -i --tty busybox --image=busybox:1.28
+   47  kubectl get pods
+   48  kubectl run busybox --image=busybox:1.28 --dry-run=client -o yaml > pod.yaml
+   49  kubectl get pods
+   50  ls
+   51  cat pod.yaml
+   52  kubectl get svc
+   53  kubectl run -i --tty busybox --restart=Never --wget -o - 10.96.79.116:80
+   54  kubectl rin -i --tty image=busybox --restart=Never -- wget -o - 10.96.79.116:80
+   55  kubectl run -i --tty image=busybox --restart=Never -- wget -o - 10.96.79.116:80
+   56  kubectl run -i --tty busybox image=busybox --restart=Never -- wget -o - 10.96.79.116:80
+   57  kubectl run -i --tty busybox --image=busybox --restart=Never -- wget -O - 10.96.79.116:80
+   58  kubectl get pods
+   59  kubectl delete pod busybox
+   60  kubectl run -i --tty busybox --image=busybox --restart=Never -- wget -O - 10.96.79.116:80
+   61  kubectl get svc
+   62  kubectl get all
+   63  vi nodeport.yaml
+   64  kubectl apply -f nodeport.yaml
+   65  kubectl get svc
+   66  wget 10.96.79.116:30080
+   67  ls
+   68  history
